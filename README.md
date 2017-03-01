@@ -73,9 +73,12 @@ self.presentViewController(pickerController, animated: true) {}
 ```swift
 /// Forces selection of tapped image immediatly.
 public var singleSelect = false
-    
+
 /// The maximum count of assets which the user will be able to select.
 public var maxSelectableCount = 999
+
+/// Whether to disable capturing a new image/video when other assets are already selected
+public var disableCaptureWhenSelected = false
 
 /// Set the defaultAssetGroup to specify which album is the default asset group.
 public var defaultAssetGroup: PHAssetCollectionSubtype?
@@ -141,7 +144,7 @@ public func writeAVToFile(path: String, presetName: String, completeBlock: (succ
 
 #### Camera customization
 
-You can give a class that implements the `DKImagePickerControllerUIDelegate` protocol to customize camera.  
+You can give a class that implements the `DKImagePickerControllerUIDelegate` protocol to customize camera.
 For example, see [CustomCameraUIDelegate](https://github.com/zhangao0086/DKImagePickerController/tree/develop/DKImagePickerControllerDemo/CustomCameraUIDelegate).
 
 #### UI customization
@@ -176,7 +179,7 @@ UINavigationBar.appearance().titleTextAttributes = [
     pod 'DKImagePickerController'
     use_frameworks!
     ```
-* Importing it into your Objective-C file: 
+* Importing it into your Objective-C file:
 
     ```objective-c
     #import <DKImagePickerController/DKImagePickerController-Swift.h>
@@ -187,7 +190,7 @@ UINavigationBar.appearance().titleTextAttributes = [
 > See also:[Swift and Objective-C in the Same Project](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html)
 
 * Drag and drop the [DKCamera][DKCamera] and `DKImageManager` and `DKImagePickerController` to your project
-* Importing it into your Objective-C file: 
+* Importing it into your Objective-C file:
 
     ```objective-c
     #import "YourProductModuleName-Swift.h"
@@ -210,7 +213,7 @@ pickerController.sourceType = DKImagePickerControllerSourceTypeBoth;
  [pickerController setDidSelectAssets:^(NSArray * __nonnull assets) {
      NSLog(@"didSelectAssets");
  }];
- 
+
  [self presentViewController:pickerController animated:YES completion:nil];
 ```
 

@@ -156,8 +156,13 @@ internal class DKAssetGroupDetailVC: UIViewController, UICollectionViewDelegate,
         return getImageManager().groupDataManager.fetchAsset(group, index: assetIndex)
     }
     
+    func cameraIndexPath() -> IndexPath? {
+        return self.hidesCamera ? nil : IndexPath(row: 0, section: 0)
+    }
+    
     func isCameraCell(indexPath: IndexPath) -> Bool {
-        return indexPath.row == 0 && !self.hidesCamera
+        guard let cameraIndexPath = self.cameraIndexPath() else {return false}
+        return cameraIndexPath.row == indexPath.row
     }
 	
     // MARK: - Cells
@@ -193,7 +198,20 @@ internal class DKAssetGroupDetailVC: UIViewController, UICollectionViewDelegate,
         self.registerCellIfNeeded(cellClass: cellClass)
         
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: cellClass.cellReuseIdentifier(), for: indexPath)
+        let cameraCell = cell as! DKAssetGroupDetailCameraCell
+        self.setupCameraCell(cameraCell: cameraCell)
+        
         return cell as! DKAssetGroupDetailBaseCell
+    }
+    
+    func setupCameraCell(cameraCell cell: DKAssetGroupDetailCameraCell) {
+        cell.isDisabled = self.imagePickerController.isCameraDisabled()
+    }
+    
+    func updateCameraCell() {
+        guard let indexPath = cameraIndexPath() else {return}
+        guard let cameraCell = collectionView.cellForItem(at: indexPath) as? DKAssetGroupDetailCameraCell else {return}
+        setupCameraCell(cameraCell: cameraCell)
     }
 	
     func setup(assetCell cell: DKAssetGroupDetailBaseCell, for indexPath: IndexPath, with asset: DKAsset) {
@@ -254,6 +272,10 @@ internal class DKAssetGroupDetailVC: UIViewController, UICollectionViewDelegate,
 
             return false
         }
+        
+        if self.isCameraCell(indexPath: indexPath) {
+            return !self.imagePickerController.isCameraDisabled()
+        }
 		
 		let shouldSelect = self.imagePickerController.selectedAssets.count < self.imagePickerController.maxSelectableCount
 		if !shouldSelect {
@@ -275,6 +297,8 @@ internal class DKAssetGroupDetailVC: UIViewController, UICollectionViewDelegate,
             if let cell = collectionView.cellForItem(at: indexPath) as? DKAssetGroupDetailBaseCell {
                 cell.index = self.imagePickerController.selectedAssets.count - 1
             }
+            
+            updateCameraCell()
         }
     }
     
@@ -297,6 +321,8 @@ internal class DKAssetGroupDetailVC: UIViewController, UICollectionViewDelegate,
 			}
 			
 			self.imagePickerController.deselectImage(removedAsset)
+            
+            updateCameraCell()
 		}
     }
     

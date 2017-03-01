@@ -183,6 +183,9 @@ open class DKImagePickerController : UINavigationController {
     /// Whether allows to select photos and videos at the same time.
     public var allowMultipleTypes = true
     
+    /// Whether to disable capturing a new image/video when other assets are already selected
+    public var disableCaptureWhenSelected = false
+    
     /// If YES, and the requested image is not stored on the local device, the Picker downloads the image from iCloud.
     public var autoDownloadWhenAssetIsInCloud = true {
         didSet {
@@ -393,6 +396,13 @@ open class DKImagePickerController : UINavigationController {
     
     internal func presentCamera() {
         self.present(self.createCamera(), animated: true, completion: nil)
+    }
+    
+    func isCameraDisabled() -> Bool {
+        if !self.disableCaptureWhenSelected {
+            return false;
+        }
+        return !self.selectedAssets.isEmpty;
     }
     
     open func dismiss() {

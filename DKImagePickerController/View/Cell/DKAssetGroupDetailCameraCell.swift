@@ -14,16 +14,30 @@ class DKAssetGroupDetailCameraCell: DKAssetGroupDetailBaseCell {
         return "DKImageCameraIdentifier"
     }
     
+    weak var cameraImageView: UIImageView!
+    
     override init(frame: CGRect) {
+        isDisabled = false
         super.init(frame: frame)
         
         let cameraImageView = UIImageView(frame: self.bounds)
         cameraImageView.contentMode = .center
         cameraImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         cameraImageView.image = DKImageResource.cameraImage()
-        self.contentView.addSubview(cameraImageView)
-        
+        contentView.addSubview(cameraImageView)
+        self.cameraImageView = cameraImageView
         self.contentView.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
+        setCameraColor()
+    }
+
+    func setCameraColor() {
+        cameraImageView.alpha = isDisabled ? 0.25 : 1.0
+    }
+    
+    var isDisabled: Bool {
+        didSet {
+            setCameraColor()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

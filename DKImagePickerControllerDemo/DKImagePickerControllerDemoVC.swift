@@ -53,6 +53,12 @@ class DKImagePickerControllerDemoVC: UITableViewController {
             
             destination.pickerController = pickerController
             
+        case "Disable Camera When Selected":
+            let pickerController = DKImagePickerController()
+            pickerController.disableCaptureWhenSelected = true
+            
+            destination.pickerController = pickerController
+            
         case "Allows Landscape":
             let pickerController = DKImagePickerController()
             pickerController.allowsLandscape = true
