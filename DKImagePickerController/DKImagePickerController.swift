@@ -222,6 +222,10 @@ open class DKImagePickerController : UINavigationController {
         }
     }
     
+    /// View controller to handle capturing photos/videos. If set, will launch this
+    /// instead of the built-in DKCamera.
+    public var createCaptureController: (() -> UIViewController?)?
+    
     public var selectedAssets = [DKAsset]()
     
     public convenience init() {
@@ -395,7 +399,15 @@ open class DKImagePickerController : UINavigationController {
     }
     
     internal func presentCamera() {
-        self.present(self.createCamera(), animated: true, completion: nil)
+        var cameraController: UIViewController?
+        if let createCaptureController = self.createCaptureController {
+            cameraController = createCaptureController()
+            guard cameraController != nil else {return}
+        } else {
+            cameraController = self.createCamera()
+        }
+        
+        self.present(cameraController!, animated: true, completion: nil)
     }
     
     func isCameraDisabled() -> Bool {

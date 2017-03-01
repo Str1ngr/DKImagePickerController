@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 class DKImagePickerControllerDemoVC: UITableViewController {
     
@@ -78,6 +79,18 @@ class DKImagePickerControllerDemoVC: UITableViewController {
             
             destination.pickerController = pickerController
             
+        case "UIImagePickerController Camera":
+            let pickerController = DKImagePickerController()
+            pickerController.createCaptureController = { () in
+                let captureController = UIImagePickerController()
+                captureController.sourceType = .camera
+                captureController.mediaTypes = [kUTTypeMovie as String]
+                captureController.delegate = self
+                return captureController
+            }
+            
+            destination.pickerController = pickerController
+            
         case "UI Customization":
             let pickerController = DKImagePickerController()
             pickerController.UIDelegate = CustomUIDelegate()
@@ -94,5 +107,16 @@ class DKImagePickerControllerDemoVC: UITableViewController {
         default:
             assert(false)
         }
+    }
+}
+
+extension DKImagePickerControllerDemoVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    private func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        print("Picked media: \(info)")
+        self.dismiss(animated: true, completion: nil)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("Cancelled picker")
     }
 }

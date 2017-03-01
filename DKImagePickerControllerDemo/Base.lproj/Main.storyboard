@@ -184,12 +184,32 @@
                                             <segue destination="vXZ-lx-hvc" kind="show" identifier="Disable Camera When Selected" id="gC7-rJ-XXT"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="HJb-oa-OND" style="IBUITableViewCellStyleDefault" id="5t4-SE-4cn">
+                                        <rect key="frame" x="0.0" y="471" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5t4-SE-4cn" id="WY0-NF-pAf">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="UIImagePickerController Camera" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HJb-oa-OND">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="vXZ-lx-hvc" kind="show" identifier="UIImagePickerController Camera" id="s0T-dM-aqN"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Appearance" footerTitle="" id="rgz-f4-jHZ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Beb-i2-3IY" style="IBUITableViewCellStyleDefault" id="mXj-Xe-l22">
-                                        <rect key="frame" x="0.0" y="534.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="578.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mXj-Xe-l22" id="LZN-za-ieL">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
@@ -209,7 +229,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="X1z-dI-AYx" style="IBUITableViewCellStyleDefault" id="DsX-vU-9fU">
-                                        <rect key="frame" x="0.0" y="578.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="622.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DsX-vU-9fU" id="14f-ls-q0J">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
@@ -229,7 +249,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Peu-Ag-6vM" style="IBUITableViewCellStyleDefault" id="Qpa-oV-t73">
-                                        <rect key="frame" x="0.0" y="622.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="666.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qpa-oV-t73" id="LWn-YV-qwJ">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
@@ -249,7 +269,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="8v9-Ht-9A1" style="IBUITableViewCellStyleDefault" id="lEw-rK-adR">
-                                        <rect key="frame" x="0.0" y="666.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="710.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lEw-rK-adR" id="ZmZ-PK-usE">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
@@ -426,6 +446,6 @@
         <image name="Play" width="74" height="74"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gC7-rJ-XXT"/>
+        <segue reference="s0T-dM-aqN"/>
     </inferredMetricsTieBreakers>
 </document>
