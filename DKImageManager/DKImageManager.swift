@@ -78,15 +78,24 @@ public class DKImageManager: DKBaseManager {
 		return options
 	}()
 	
-	public var autoDownloadWhenAssetIsInCloud = true
-	
-    public lazy var groupDataManager: DKGroupDataManager! = {
-        return DKGroupDataManager()
-    }()
+    public var autoDownloadWhenAssetIsInCloud = true
+    
+    //hmitkov : 2018.02.28 : Fix a crash when the ImagePickerContreller is displayed twice in a row.
+    //https://github.com/zhangao0086/DKImagePickerController/pull/322
+    //https://github.com/zhangao0086/DKImagePickerController/pull/322/commits/19f478e4fe747eeff7620015364256c95269fce2
+    private var _groupDataManager: DKGroupDataManager?
+    public var groupDataManager: DKGroupDataManager {
+        get {
+            if _groupDataManager == nil {
+                _groupDataManager = DKGroupDataManager()
+            }
+            return _groupDataManager!
+        }
+    }
 	
 	public func invalidate() {
 		self.groupDataManager.invalidate()
-        self.groupDataManager = nil
+        self._groupDataManager = nil
 	}
 	
 	public func fetchImageForAsset(_ asset: DKAsset, size: CGSize, completeBlock: @escaping (_ image: UIImage?, _ info: [AnyHashable: Any]?) -> Void) {
