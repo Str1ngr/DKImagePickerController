@@ -68,7 +68,7 @@ class DKAssetGroupCell: UITableViewCell {
         return separator
     }()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.selectedBackgroundView = self.customSelectedBackgroundView
@@ -128,7 +128,7 @@ class DKAssetGroupListVC: UITableViewController, DKGroupDataManagerObserver {
     override var preferredContentSize: CGSize {
         get {
             if let groups = self.groups {
-                return CGSize(width: UIViewNoIntrinsicMetric, height: CGFloat(groups.count) * self.tableView.rowHeight)
+                return CGSize(width: UIView.noIntrinsicMetric, height: CGFloat(groups.count) * self.tableView.rowHeight)
             } else {
                 return super.preferredContentSize
             }
@@ -158,7 +158,7 @@ class DKAssetGroupListVC: UITableViewController, DKGroupDataManagerObserver {
 				strongSelf.groups = groups!
 				strongSelf.selectedGroup = strongSelf.defaultAssetGroupOfAppropriate()
 				if let selectedGroup = strongSelf.selectedGroup {
-					strongSelf.tableView.selectRow(at: IndexPath(row: groups!.index(of: selectedGroup)!, section: 0),
+					strongSelf.tableView.selectRow(at: IndexPath(row: groups!.firstIndex(of: selectedGroup)!, section: 0),
 						animated: false,
 						scrollPosition: .none)
 				}
@@ -224,12 +224,12 @@ class DKAssetGroupListVC: UITableViewController, DKGroupDataManagerObserver {
 	// MARK: - DKGroupDataManagerObserver methods
 	
 	func groupDidUpdate(_ groupId: String) {
-		let indexPath = IndexPath(row: self.groups!.index(of: groupId)!, section: 0)
+		let indexPath = IndexPath(row: self.groups!.firstIndex(of: groupId)!, section: 0)
 		self.tableView.reloadRows(at: [indexPath], with: .none)
 	}
 	
 	func groupDidRemove(_ groupId: String) {
-		let indexPath = IndexPath(row: self.groups!.index(of: groupId)!, section: 0)
+		let indexPath = IndexPath(row: self.groups!.firstIndex(of: groupId)!, section: 0)
 		self.groups?.remove(at: indexPath.row)
 		self.tableView.deleteRows(at: [indexPath], with: .none)
 		

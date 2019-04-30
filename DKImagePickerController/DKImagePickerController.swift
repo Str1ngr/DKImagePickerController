@@ -474,7 +474,7 @@ open class DKImagePickerController : UINavigationController {
     }
     
     internal func deselectImage(_ asset: DKAsset) {
-        self.selectedAssets.remove(at: selectedAssets.index(of: asset)!)
+        self.selectedAssets.remove(at: selectedAssets.firstIndex(of: asset)!)
         self.UIDelegate.imagePickerController(self, didDeselectAssets: [asset])
     }
     

@@ -18,7 +18,7 @@ private extension UICollectionView {
         if hidesCamera {
             return allLayoutAttributes.map { $0.indexPath }
         } else {
-            return allLayoutAttributes.flatMap { $0.indexPath.item == 0 ? nil : IndexPath(item: $0.indexPath.item - 1, section: $0.indexPath.section) }
+            return allLayoutAttributes.compactMap { $0.indexPath.item == 0 ? nil : IndexPath(item: $0.indexPath.item - 1, section: $0.indexPath.section) }
         }
     }
     
@@ -30,10 +30,10 @@ internal class DKAssetGroupDetailVC: UIViewController, UICollectionViewDelegate,
     private lazy var selectGroupButton: UIButton = {
         let button = UIButton()
 		
-		let globalTitleColor = UINavigationBar.appearance().titleTextAttributes?[NSAttributedStringKey.foregroundColor] as? UIColor
+		let globalTitleColor = UINavigationBar.appearance().titleTextAttributes?[NSAttributedString.Key.foregroundColor] as? UIColor
 		button.setTitleColor(globalTitleColor ?? UIColor.black, for: .normal)
 		
-		let globalTitleFont = UINavigationBar.appearance().titleTextAttributes?[NSAttributedStringKey.font] as? UIFont
+		let globalTitleFont = UINavigationBar.appearance().titleTextAttributes?[NSAttributedString.Key.font] as? UIFont
 		button.titleLabel!.font = globalTitleFont ?? UIFont.boldSystemFont(ofSize: 18.0)
 		
 		button.addTarget(self, action: #selector(DKAssetGroupDetailVC.showGroupSelector), for: .touchUpInside)
@@ -229,7 +229,7 @@ internal class DKAssetGroupDetailVC: UIViewController, UICollectionViewDelegate,
             }
         }
 
-		if let index = self.imagePickerController.selectedAssets.index(of: asset) {
+		if let index = self.imagePickerController.selectedAssets.firstIndex(of: asset) {
 			cell.isSelected = true
 			cell.index = index
 			self.collectionView!.selectItem(at: indexPath, animated: false, scrollPosition: [])
@@ -304,7 +304,7 @@ internal class DKAssetGroupDetailVC: UIViewController, UICollectionViewDelegate,
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
 		if let removedAsset = (collectionView.cellForItem(at: indexPath) as? DKAssetGroupDetailBaseCell)?.asset {
-			let removedIndex = self.imagePickerController.selectedAssets.index(of: removedAsset)!
+			let removedIndex = self.imagePickerController.selectedAssets.firstIndex(of: removedAsset)!
 			
 			/// Minimize the number of cycles.
 			let indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems!
@@ -313,7 +313,7 @@ internal class DKAssetGroupDetailVC: UIViewController, UICollectionViewDelegate,
 			let intersect = Set(indexPathsForVisibleItems).intersection(Set(indexPathsForSelectedItems))
 			
 			for selectedIndexPath in intersect {
-                if let selectedCell = (collectionView.cellForItem(at: selectedIndexPath) as? DKAssetGroupDetailBaseCell), let selectedCellAsset = selectedCell.asset, let selectedIndex = self.imagePickerController.selectedAssets.index(of: selectedCellAsset) {
+                if let selectedCell = (collectionView.cellForItem(at: selectedIndexPath) as? DKAssetGroupDetailBaseCell), let selectedCellAsset = selectedCell.asset, let selectedIndex = self.imagePickerController.selectedAssets.firstIndex(of: selectedCellAsset) {
 					if selectedIndex > removedIndex {
 						selectedCell.index = selectedCell.index - 1
 					}
